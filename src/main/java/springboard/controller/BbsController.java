@@ -7,10 +7,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import model.JdbcTemplateConst;
 import springboard.command.BbsCommandImpl;
 import springboard.command.ListCommand;
+import springboard.command.WriteActionCommand;
+import springboard.model.SpringBbsDTO;
 
 /*
 기본 패키지로 설정한 곳에 컨트롤를 선언하면 요청이
@@ -64,6 +67,38 @@ public class BbsController {
 		
 		return "07Board/list";
 	}
+	
+	
+	@RequestMapping("/board/write.do")
+	public String write(Model model) {
+		
+		return "07Board/write";
+	}
+	
+	
+	@RequestMapping(value = "/board/writeAction.do", method=RequestMethod.POST)
+	public String writeAction(Model model,
+			HttpServletRequest req, SpringBbsDTO springBbsDTO) {
+		
+		model.addAttribute("req",req);
+		model.addAttribute("springBbsDTO",springBbsDTO);
+		command = new WriteActionCommand();
+		command.execute(model);
+		
+		return "redirect:list.do?nowPage=1";
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -1,10 +1,14 @@
 package springboard.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 
 import model.JdbcTemplateConst;
 
@@ -92,6 +96,51 @@ public class JDBCTemplateDAO {
 		
 		
 	}
+	
+	
+	
+	public void write(final SpringBbsDTO springBbsDTO) {
+		
+		template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+
+				String sql = " insert into springboard ( "
+						+ " idx, name, title, contents, hits "
+						+ " ,bgroup , bstep, bindent, pass ) "
+						+ " values ("
+						+ " springboard_seq.nextval,? ,? ,? ,0 ,"
+						+ " springboard_seq.nextval, 0, 0, ? ) ";
+				
+				PreparedStatement psmt =
+						con.prepareStatement(sql);
+				
+				psmt.setString(1, springBbsDTO.getName());
+				psmt.setString(2, springBbsDTO.getTitle());
+				psmt.setString(3, springBbsDTO.getContents());
+				psmt.setString(4, springBbsDTO.getPass());
+				
+				
+				return psmt;
+			}
+		});
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
