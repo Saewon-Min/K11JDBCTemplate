@@ -32,6 +32,7 @@ public class ListCommand implements BbsCommandImpl{
 		 */
 		Map<String, Object> paramMap = model.asMap();
 		
+		
 		HttpServletRequest req =
 				(HttpServletRequest)paramMap.get("req");
 		
@@ -53,6 +54,7 @@ public class ListCommand implements BbsCommandImpl{
 		
 		// 게시물 수 카운트
 		int totalRecordCount = dao.getTotalCount(paramMap);
+		
 		
 		/********************* 페이징 처리 start ***********************/
 		// Environment객체를 통한 properties 파일을 읽어온다.

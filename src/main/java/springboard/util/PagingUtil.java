@@ -4,7 +4,7 @@ public class PagingUtil {
 	
 	public static String pagingImg(
 			int totalRecordCount,
-			int pageSize,
+			int pageSize, 
 			int blockPage,
 			int nowPage,
 			String page) {
