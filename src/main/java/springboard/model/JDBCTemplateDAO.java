@@ -328,6 +328,30 @@ public class JDBCTemplateDAO {
 		
 	}
 	
+	/*
+	답변글을 입력하기 전 현재 step보다 큰 게시물들을 일괄적으로
+	step+1 해서 뒤로 밀어주는 작업을 진행한다.
+	 */
+	public void replyPrevUpdate(final int strGroup, final int strStep) {
+		
+		String sql = " update springboard "
+				+ " set bstep = bstep+1 "
+				+ " where bgroup=? and bstep>? ";
+		
+		template.update(sql, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+
+				ps.setInt(1, strGroup);
+				ps.setInt(2, strStep);
+			}
+		});
+				
+	}
+	
+	
+	// 리스트 가져오기(페이지 처리 O)
 	public ArrayList<SpringBbsDTO> listPage(
 			Map<String, Object> map){
 
@@ -353,23 +377,7 @@ public class JDBCTemplateDAO {
 				SpringBbsDTO.class));
 	}
 	
-	public void replyPrevUpdate(final int strGroup, final int strStep) {
-		
-		String sql = " update springboard "
-				+ " set bstep = bstep+1 "
-				+ " where bgroup=? and bstep>? ";
-		
-		template.update(sql, new PreparedStatementSetter() {
-			
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
 
-				ps.setInt(1, strGroup);
-				ps.setInt(2, strStep);
-			}
-		});
-				
-	}
 
 	
 }
