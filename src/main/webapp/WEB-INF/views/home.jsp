@@ -17,12 +17,6 @@
 			SPRING JDBC(Jdbc Template)을 이용한 게시판
 		</a>
 	</li>
-	<li>
-		<a href="board/write.do" target="_blank">
-			write글쓰기
-		</a>
-	</li>
-
 
 
 

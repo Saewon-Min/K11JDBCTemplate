@@ -9,29 +9,21 @@ import org.springframework.ui.Model;
 import springboard.model.JDBCTemplateDAO;
 import springboard.model.SpringBbsDTO;
 
-public class WriteActionCommand implements BbsCommandImpl{
+public class ReplyActionCommand implements BbsCommandImpl {
 
 	@Override
 	public void execute(Model model) {
-
-		// model에 저장된 값을 Map컬렉션으로 변환한다.
+		
+		// 요청을 한번에 가져옴
 		Map<String, Object> paramMap = model.asMap();
 		
-		// request객체와 DTO객체를 가져온다.
 		HttpServletRequest req = (HttpServletRequest)paramMap.get("req");
-		SpringBbsDTO springBbsDTO = (SpringBbsDTO)paramMap.get("springBbsDTO");
-
-		// 폼값 확인용
-		System.out.println("springBbsDTO.title = "+springBbsDTO.getTitle());
 		
-		// DAO 객체 생성 후 쓰기 처리
+		SpringBbsDTO dto = (SpringBbsDTO)paramMap.get("springBbsDTO");
+		
 		JDBCTemplateDAO dao = new JDBCTemplateDAO();
-		dao.write(springBbsDTO);
-		//dao.close();
 		
+		dao.reply(dto);
+		// dao.close();
 	}
-	
-	
-	
-	
 }
