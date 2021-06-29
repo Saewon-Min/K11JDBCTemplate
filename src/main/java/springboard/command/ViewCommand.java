@@ -28,6 +28,7 @@ public class ViewCommand implements BbsCommandImpl{
 		
 		dto = dao.view(idx);
 		
+		// 기존의 내용을 줄바꿈 처리하여 다시 저장한다.
 		dto.setContents(dto.getContents().replace("\r\n", "<br/>"));
 		
 		model.addAttribute("viewRow",dto);
